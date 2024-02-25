@@ -13,7 +13,7 @@ export default async function DashboardLayout({
 }) {
   //const { userId } = auth();
 
-  const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
+  // const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
 
   // if (!userId) {
   //   redirect("/sign-in");
@@ -21,8 +21,7 @@ export default async function DashboardLayout({
 
   const store = await prismadb.store.findFirst({
     where: {
-      id: params.storeId,
-      userId,
+      id: "2553e45e-55c7-424f-8a15-fa48e566509d",
     },
   });
 
