@@ -75,6 +75,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     ? {
         ...initialData,
         price: parseFloat(String(initialData?.price)),
+        measure: parseFloat(String(initialData?.measure)),
       }
     : {
         name: "",
