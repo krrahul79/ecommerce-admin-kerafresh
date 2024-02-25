@@ -8,7 +8,8 @@ export async function POST(
   { params }: { params: { storeId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
+    //const { userId } = auth();
 
     const body = await req.json();
 
@@ -33,7 +34,7 @@ export async function POST(
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
-        userId,
+        userId: userId,
       },
     });
 
@@ -69,9 +70,6 @@ export async function GET(
     const categories = await prismadb.category.findMany({
       where: {
         storeId: params.storeId,
-      },
-      orderBy: {
-        priority: "asc",
       },
     });
 

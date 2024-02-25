@@ -7,15 +7,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
-  const { userId } = auth();
-
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  //const { userId } = auth();
 
   const stores = await prismadb.store.findMany({
     where: {
-      userId,
+      userId: "user_2bYBYCjrQzapn8M7vHj8qIQIK9v",
     },
   });
 
@@ -26,7 +22,6 @@ const Navbar = async () => {
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
-          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </div>
