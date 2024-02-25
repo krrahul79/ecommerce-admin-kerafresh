@@ -39,6 +39,8 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
+  measure: z.coerce.number().min(1),
+  unit: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
 });
@@ -206,6 +208,37 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       placeholder="9.99"
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="measure"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Measure</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="measure"
+                      disabled={loading}
+                      placeholder="1"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="unit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Unit(kg/l)</FormLabel>
+                  <FormControl>
+                    <Input disabled={loading} placeholder="unit" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

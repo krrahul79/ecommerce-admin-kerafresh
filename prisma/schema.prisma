@@ -12,7 +12,6 @@ model Store {
   id              String    @id @default(uuid())
   name            String
   userId          String
-  billboards      Billboard[] @relation("StoreToBillboard")
   categories      Category[] @relation("StoreToCategory")
   products        Product[]  @relation("StoreToProduct")
   orders          Order[]     @relation("StoreToOrder")
@@ -20,32 +19,19 @@ model Store {
   updatedAt       DateTime   @updatedAt
 }
 
-model Billboard {
-  id          String @id @default(uuid())
-  storeId     String
-  store       Store @relation("StoreToBillboard", fields: [storeId], references: [id])
-  label       String
-  imageUrl    String
-  categories  Category[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([storeId])
-}
 
 model Category {
   id          String      @id @default(uuid())
   storeId     String      // Foreign Key to Store
   store       Store       @relation("StoreToCategory", fields: [storeId], references: [id])
-  billboardId String      // Foreign Key to Billboard
-  billboard   Billboard   @relation(fields: [billboardId], references: [id])
+  imageUrl    String
   name        String
+  priority    Int
   products    Product[]   @relation("CategoryToProduct")
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
   @@index([storeId])
-  @@index([billboardId])
 }
 
 model Product {
@@ -56,13 +42,14 @@ model Product {
   category    Category  @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name        String
   price       Decimal
+  measure     Decimal
+  unit        String
   isFeatured  Boolean   @default(false)
   isArchived  Boolean   @default(false)
   images      Image[]   // Relation to Image model
   orderItems  OrderItem[]   // Relation to Order model
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-
   @@index([storeId])
   @@index([categoryId])
 }
