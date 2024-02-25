@@ -7,6 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
+  //const { userId } = auth();
+
   const stores = await prismadb.store.findMany({
     where: {
       userId: "user_2bYBYCjrQzapn8M7vHj8qIQIK9v",
