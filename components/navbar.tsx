@@ -8,13 +8,19 @@ import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
   //const { userId } = auth();
+  //const { userId } = auth();
+
+  const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
+
+  // if (!userId) {
+  //   redirect("/sign-in");
+  // }
 
   const stores = await prismadb.store.findMany({
     where: {
-      userId: "user_2bYBYCjrQzapn8M7vHj8qIQIK9v",
+      userId: userId,
     },
   });
-
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">

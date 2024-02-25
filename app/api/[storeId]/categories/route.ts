@@ -71,6 +71,9 @@ export async function GET(
       where: {
         storeId: params.storeId,
       },
+      orderBy: {
+        priority: "asc",
+      },
     });
 
     return NextResponse.json(categories);
