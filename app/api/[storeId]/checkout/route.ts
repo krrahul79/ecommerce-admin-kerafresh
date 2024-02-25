@@ -27,26 +27,30 @@ export async function POST(
   const products = await prismadb.product.findMany({
     where: {
       id: {
-        in: productIds
-      }
-    }
+        in: productIds,
+      },
+    },
   });
 
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
-
+  var totalAmount = 0;
   products.forEach((product) => {
     line_items.push({
       quantity: 1,
       price_data: {
-        currency: 'USD',
+        currency: "GBP",
         product_data: {
           name: product.name,
         },
-        unit_amount: product.price.toNumber() * 100
-      }
+        unit_amount: product.price.toNumber() * 100,
+      },
     });
+    totalAmount = totalAmount + product.price.toNumber();
   });
-
+  var deliveryCharge = 5.99;
+  if (totalAmount > 50) {
+    deliveryCharge = 0;
+  }
   const order = await prismadb.order.create({
     data: {
       storeId: params.storeId,
@@ -55,29 +59,45 @@ export async function POST(
         create: productIds.map((productId: string) => ({
           product: {
             connect: {
-              id: productId
-            }
-          }
-        }))
-      }
-    }
+              id: productId,
+            },
+          },
+        })),
+      },
+    },
   });
 
   const session = await stripe.checkout.sessions.create({
     line_items,
-    mode: 'payment',
-    billing_address_collection: 'required',
+    mode: "payment",
+    billing_address_collection: "required",
     phone_number_collection: {
       enabled: true,
     },
+
     success_url: `${process.env.FRONTEND_STORE_URL}/cart?success=1`,
     cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?canceled=1`,
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          display_name: "Delivery Charges",
+          fixed_amount: {
+            amount: deliveryCharge * 100,
+            currency: "GBP",
+          },
+        },
+      },
+    ],
     metadata: {
-      orderId: order.id
+      orderId: order.id,
     },
   });
 
-  return NextResponse.json({ url: session.url }, {
-    headers: corsHeaders
-  });
-};
+  return NextResponse.json(
+    { url: session.url },
+    {
+      headers: corsHeaders,
+    }
+  );
+}
