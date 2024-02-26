@@ -1,32 +1,35 @@
-import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs';
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 
-import prismadb from '@/lib/prismadb';
+import Navbar from "@/components/navbar";
+import prismadb from "@/lib/prismadb";
 
-export default async function SetupLayout({
+export default async function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   const { userId } = auth();
 
   if (!userId) {
-    redirect('/sign-in');
+    redirect("/sign-in");
   }
-
+  const storeId = "2553e45e-55c7-424f-8a15-fa48e566509d";
   const store = await prismadb.store.findFirst({
     where: {
+      id: storeId,
       userId,
-    }
+    },
   });
 
-  if (store) {
-    redirect(`/${store.id}`);
-  };
+  if (!store) {
+    redirect("/");
+  }
 
   return (
     <>
+      <Navbar />
       {children}
     </>
   );
-};
+}
