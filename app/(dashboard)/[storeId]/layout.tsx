@@ -13,17 +13,6 @@ export default async function DashboardLayout({
   //const { userId } = auth();
   const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
 
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: params.storeId,
-      userId,
-    },
-  });
-
-  if (!store) {
-    redirect("/");
-  }
-
   return (
     <>
       <Navbar />

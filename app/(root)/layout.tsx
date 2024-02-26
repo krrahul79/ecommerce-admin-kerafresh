@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 
-
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
@@ -12,12 +11,5 @@ export default function DashboardLayout({
   //   redirect("/sign-in");
   // }
 
-  return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
-
-      {children}
-    </section>
-  );
+  return { children };
 }
