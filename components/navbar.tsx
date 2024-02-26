@@ -1,4 +1,3 @@
-import { UserButton, auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import StoreSwitcher from "@/components/store-switcher";
@@ -7,7 +6,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
-  const { userId } = auth();
+  //const { userId } = auth();
+  const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
 
   if (!userId) {
     redirect("/sign-in");
@@ -26,10 +26,6 @@ const Navbar = async () => {
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
-          <UserButton
-            afterSignOutUrl="/"
-            afterMultiSessionSingleSignOutUrl="/"
-          />
         </div>
       </div>
     </div>

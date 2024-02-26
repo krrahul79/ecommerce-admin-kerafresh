@@ -1,4 +1,4 @@
-import { ClerkProvider } from "@clerk/nextjs";
+
 import { Inter } from "next/font/google";
 
 import { ToastProvider } from "@/providers/toast-provider";
@@ -19,7 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -28,6 +27,5 @@ export default async function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }
