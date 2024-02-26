@@ -10,17 +10,7 @@ export default async function SetupLayout({
 }) {
   //const { userId } = auth();
 
-  const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
-
-  const store = await prismadb.store.findFirst({
-    where: {
-      userId,
-    },
-  });
-
-  if (store) {
-    redirect(`/${store.id}`);
-  }
+  redirect(`/2553e45e-55c7-424f-8a15-fa48e566509d`);
 
   return <>{children}</>;
 }
