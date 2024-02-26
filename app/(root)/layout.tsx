@@ -11,5 +11,5 @@ export default function DashboardLayout({
   //   redirect("/sign-in");
   // }
 
-  return { children };
+  return <>{children}</>;
 }
