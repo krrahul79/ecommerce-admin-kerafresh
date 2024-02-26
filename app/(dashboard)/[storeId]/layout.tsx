@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 
-
 import Navbar from "@/components/navbar";
 import prismadb from "@/lib/prismadb";
 
@@ -13,9 +12,6 @@ export default async function DashboardLayout({
 }) {
   //const { userId } = auth();
   const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
-  if (!userId) {
-    redirect("/sign-in");
-  }
 
   const store = await prismadb.store.findFirst({
     where: {

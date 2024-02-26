@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 
-
 import prismadb from "@/lib/prismadb";
 
 import { SettingsForm } from "./components/settings-form";
@@ -8,10 +7,6 @@ import { SettingsForm } from "./components/settings-form";
 const SettingsPage = async ({ params }: { params: { storeId: string } }) => {
   //const { userId } = auth();
   const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
-
-  if (!userId) {
-    redirect("/sign-in");
-  }
 
   const store = await prismadb.store.findFirst({
     where: {

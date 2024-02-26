@@ -9,10 +9,6 @@ const Navbar = async () => {
   //const { userId } = auth();
   const userId = "user_2bYBYCjrQzapn8M7vHj8qIQIK9v";
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
-
   const stores = await prismadb.store.findMany({
     where: {
       userId,
@@ -22,7 +18,6 @@ const Navbar = async () => {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <StoreSwitcher items={stores} />
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
